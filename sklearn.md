@@ -18,7 +18,7 @@ Split data into train and test datasets
 # Import
 from sklearn.model_selection import train_test_split
 # Code
-rain, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
 ````
 
 ## Scale the data
@@ -32,6 +32,17 @@ scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 ````
+
+## One hot encoding
+`````py
+from sklearn.preprocessing import OneHotEncoder
+ohe = OneHotEncoder(drop='first') # drop first is optional and case dependent
+transformed = ohe.fit_transform(df[['cat', 'cat2']])
+new_cols = np.concatenate((ohe.categories_[0][1:], ohe.categories_[1][1:])) # [1:] only if you chose drop first
+df[new_cols] = transformed.toarray() 
+# Alternatively, using Pandas
+dummies = pd.get_dummies(df[['cat', 'cat2']], drop_first=True)
+df = pd.concat([df, dummies], axis=1)
 
 ## Linear Regression
 ````python

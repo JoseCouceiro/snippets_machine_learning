@@ -67,3 +67,56 @@ plt.figure(figsize=(12,6))
 plt.scatter(y_test, predictions)
 plt.plot(y_test, y_test, 'r')
 ````
+___
+### Binary classification model
+````py
+model = Sequential()
+model.add(Dense(30, activation='relu')) # as many neurons per layer as features
+model.add(Dense(15, activation='relu'))
+
+model.add(Dense(1, activation='sigmoid')) # output layer only 1 neuron, activation is a sigmoid to obtain a binary output
+````
+
+#### Compile the model
+````py
+model.compile(optimizer = 'adam', loss='binary_crossentropy')
+````
+
+#### Fit the model to train data with validation against test_data
+````py
+model.fit(x=X_train, y=y_train,
+          validation_data=(X_test,y_test),
+          epochs = 400)
+````
+
+#### Analize the model
+````py
+# Graphic analysis of loss drop
+losses = pd.DataFrame(model.history.history)
+losses.plot()
+# Get probabilities and predictions
+probs = model.predict(X_test)
+preds = probs.round()
+# Classification report and confussion matrix
+from sklearn.metrics import classification_report, confusion_matrix
+print(classification_report(y_test, preds))
+print(confusion_matrix(y_test, preds))
+# Plot cconfussion matrix
+cm = confusion_matrix(y_test, preds)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm,
+                              display_labels=[0,1])
+disp.plot()
+
+````
+___
+### Early stopping
+````py
+from tensorflow.keras.callbacks import EarlyStopping
+early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=25)
+````
+___
+### Dropout
+````py
+from tensorflow.keras.layers import Dropout
+model.add(Dropout(0.5))
+````
