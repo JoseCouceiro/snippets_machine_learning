@@ -59,9 +59,9 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 ````
 #### Initialize the model
 ````py
-dtc = DecisionTreeClassifier(labelCol='PrivateIndex', featuresCol='features')
-rfc = RandomForestClassifier(labelCol='PrivateIndex', featuresCol='features')
-gbt = GBTClassifier(labelCol='PrivateIndex', featuresCol='features')
+dtc = DecisionTreeClassifier(labelCol=<<label_column>>, featuresCol='features')
+rfc = RandomForestClassifier(labelCol=<<label_column>>, featuresCol='features')
+gbt = GBTClassifier(labelCol=<<label_column>>, featuresCol='features')
 ````
 #### Fit the model
 ````py
