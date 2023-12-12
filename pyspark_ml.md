@@ -44,7 +44,7 @@ test_results = lr_model.evaluate(test_data)
 test_results.rootMeanSquaredError
 test_results.r2
 ````
-### Obtain predictions
+#### Obtain predictions
 ````py
 predictions = lr_model.transform(<<unlabeled_data>>)
 ````
@@ -83,7 +83,7 @@ multi_eval = MulticlassClassificationEvaluator(labelCol=<<label_col>>, metricNam
 rfc = binary_eval.evaluate(<<predictions>>)
 acc = multi_eval.evaluate(<<predictions>>)
 ````
-### Obtain predictions
+#### Obtain predictions
 ````py
 predictions = model.transform(unlabeled_data)
 
