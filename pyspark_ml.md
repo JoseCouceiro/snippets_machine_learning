@@ -86,5 +86,31 @@ acc = multi_eval.evaluate(<<predictions>>)
 #### Obtain predictions
 ````py
 predictions = model.transform(unlabeled_data)
+````
+
+### K-Means Clustering
+
+#### Imports
+````py
+from pyspark.ml.clustering import KMeans
+from pyspark.ml.evaluation import ClusteringEvaluator
+````
+#### Initialize the model
+````py
+kmeans = KMeans(featuresCol='scaledFeatures', k=<<n>>, seed=<<m>>)
+````
+#### Fit the model
+````py
+model = kmeans.fit(<<final_data>>)
+````
+#### Evaluate the model
+````py
+# Make predictions 
+predictions = model.transform(<<final_data>>)
+# Evaluate clustering by computing Silhouette score
+evaluator = ClusteringEvaluator()
+silhouette = evaluator.evaluate(predictions)
+print("Silhouette score: ", silhouette)
+````
 
 
