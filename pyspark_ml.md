@@ -7,16 +7,22 @@
 from pyspark.ml.linalg import Vectors
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.feature import StringIndexer
-````
-#### Vectorize the features
-````py
-assembler = VectorAssembler(inputCols=<<list of columns>>, outputCol='features')
-output = assembler.transform(<<dataframe>>)
+from pyspark.ml.feature import OneHotEncoder
 ````
 #### Indexation of  categorical data
 ````py
 indexer = StringIndexer(inputCol=<<column>>, outputCol=<<indexed_column>>)
 output = indexer.fit(<<dataframe>>).transform(<<dataframe>>)
+````
+#### OneHot Encoding
+````py
+encoder = OneHotEncoder(inputCol=<<indexed_column>>, outputCol='vec_column')
+output = encoder.fit(<<dataframe>>).transform(<<dataframe>>)
+````
+#### Vectorize the features
+````py
+assembler = VectorAssembler(inputCols=<<list of columns>>, outputCol='features')
+output = assembler.transform(<<dataframe>>)
 ````
 #### Create a dataframe of features and labels
 ````py
