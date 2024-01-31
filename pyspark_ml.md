@@ -69,7 +69,7 @@ log_reg = LogisticRegression(featuresCol='features', labelCol=<<label_column>>)
 #### Fit the model
 ````py
 log_reg_model = log_reg(train_data)
-results = log_reg_model.transform(test__data)
+results = log_reg_model.transform(test_data)
 ````
 #### Evaluate the model
 ````py
