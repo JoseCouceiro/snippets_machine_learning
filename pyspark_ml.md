@@ -55,6 +55,28 @@ test_results.r2
 predictions = lr_model.transform(<<unlabeled_data>>)
 ````
 
+### Logistic Regression
+
+#### Imports
+````py
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
+````
+#### Initialize the model and fit the data
+````py
+log_reg = LogisticRegression(featuresCol='features', labelCol=<<label_column>>)
+````
+#### Fit the model
+````py
+log_reg_model = log_reg(train_data)
+results = log_reg_model.transform(test__data)
+````
+#### Evaluate the model
+````py
+my_eval = BinaryClassificationEvaluator(rawPredictionCol='prediction', labelCol=<<label_column>>)
+AUC = my_eval.evaluate(results)
+````
+
 ### Decision Trees and Random Forest
 
 #### Imports
