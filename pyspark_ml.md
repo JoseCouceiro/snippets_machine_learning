@@ -74,7 +74,7 @@ results = log_reg_model.transform(test_data)
 #### Evaluate the model
 ````py
 my_eval = BinaryClassificationEvaluator(rawPredictionCol='prediction', labelCol=<<label_column>>)
-AUC = my_eval.evaluate(results)
+AUC = my_eval.evaluate(<<results>>)
 ````
 
 ### Decision Trees and Random Forest
@@ -103,12 +103,12 @@ gbt_preds = gbt_model.transform(test_data)
 ````
 #### Evaluate the model
 ````py
-# rfc by default
+# AUC by default
 binary_eval = BinaryClassificationEvaluator(labelCol=<<label_col>>)
 # for accuracy
 multi_eval = MulticlassClassificationEvaluator(labelCol=<<label_col>>, metricName='accuracy')
 
-rfc = binary_eval.evaluate(<<predictions>>)
+AUC = binary_eval.evaluate(<<predictions>>)
 acc = multi_eval.evaluate(<<predictions>>)
 ````
 #### Obtain predictions
