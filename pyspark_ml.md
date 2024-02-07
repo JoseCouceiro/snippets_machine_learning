@@ -140,5 +140,29 @@ evaluator = ClusteringEvaluator()
 silhouette = evaluator.evaluate(predictions)
 print("Silhouette score: ", silhouette)
 ````
+### Recommender Systems
+
+#### Imports
+````py
+from pyspark.ml.recommendation import ALS
+from pyspark.ml.evaluation import RegressionEvaluator
+````
+#### Initialize the model
+````py
+als = ALS(maxIter=<<5>>, regParam=<<0.01>>, userCol=<<userId>>,itemCol=<<itemId>>,ratingCol=<<rating>>)
+````
+#### Fit the model
+````py
+model = als.fit(train_data)
+````
+#### Evaluate the model
+````py
+# Make predictions 
+predictions = model.transform(test_data)
+# Evaluate
+evaluator = RegressionEvaluator(metricName='rmse', labelCol=<<rating>>, predictionCol='prediction')
+rmse = evaluator.evaluate(predictions)
+print("rmse: ", rmse)
+````
 
 
