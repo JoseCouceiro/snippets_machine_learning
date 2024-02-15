@@ -165,4 +165,42 @@ rmse = evaluator.evaluate(predictions)
 print("rmse: ", rmse)
 ````
 
+### Natural Language Processing (and NaiveBayes)
+
+#### Imports
+````py
+from pyspark.ml.feature import Tokenizer, StopWordsRemover, CountVectorizer, IDF, StringIndexer
+from pyspark.ml.classification import NaiveBayes
+````
+#### Text processing
+````py
+# Transform text in a list of terms
+tokenizer = Tokenizer(inputCol='text', outputCol='token_text')
+# Remove stop words
+stop_remove = StopWordsRemover(inputCol='token_text', outputCol='stop_token')
+# Count the vocabulary of the text
+count_vec = CountVectorizer(inputCol='stop_token', outputCol='c_vec')
+# Calculates the frequency of each term
+idf = IDF(inputCol='c_vec', outputCol='tf_idf')
+# Indexing the label
+ham_spam_to_numeric = StringIndexer(inputCol='class', outputCol='label')
+````
+#### Initialize the model
+````py
+nb = NaiveBayes()
+````
+#### Fit the model
+````py
+model = nb.fit(train_data)
+````
+#### Evaluate the model
+````py
+# Make predictions 
+predictions = model.transform(test_data)
+# Evaluate
+evaluator = MulticlassClassificationEvaluator()
+acc = evaluator.evaluate(predictions)
+print("ACC: ", acc)
+````
+
 
